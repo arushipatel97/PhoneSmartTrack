@@ -11,38 +11,66 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/gesture1Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="recordGesture"
-            android:text="FULL" />
-
-        <Button
-            android:id="@+id/testButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:onClick="recordGesture"
-            android:text="Test" />
-
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
         <TextView
-            android:id="@+id/gesture1TextView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Num samples: 0" />
-
-        <TextView
-            android:id="@+id/resultText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Result: " />
+            android:text="Welcome to TrackSmart\n  Choose your object:"
+            android:textSize="14sp"
+            android:id="@+id/Title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/milkButton"
+                android:onClick="startApp"
+                android:src="@drawable/milkicon"
+                android:tag="milk" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/cerealButton"
+                android:onClick="startApp"
+                android:src="@drawable/cerealicon"
+                android:tag="cereal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="N/A"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/blue"
+                android:paddingRight="15dp"
+                android:id="@+id/milkLevel" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="N/A"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/blue"
+                android:paddingLeft="15dp"
+                android:id="@+id/cerealLevel" />
+        </LinearLayout>
 
     </LinearLayout>
-
 </android.support.wear.widget.BoxInsetLayout>

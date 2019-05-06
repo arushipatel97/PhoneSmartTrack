@@ -30,6 +30,8 @@ public class Model {
     // Examples of how the .arff format:
     // https://www.programcreek.com/2013/01/a-simple-machine-learning-example-in-java/
     // https://www.cs.waikato.ac.nz/~ml/weka/arff.html
+    boolean DEBUG_MODE = false;
+
     private Map<String, ArrayList<String[]>> trainingData;
     private String[] testData;
     public Map<String, String> featureNames;
@@ -40,7 +42,8 @@ public class Model {
     private Context context;
 
     // TODO optional: give your gestures more informative names
-    public String[] outputClasses = {"FULL", "EMP"};
+    public String[] outputClasses = {"FULL", "EMP", "25","50", "75"};
+
 
     public Model(Context context) {
         this.context = context;
@@ -57,6 +60,26 @@ public class Model {
         featureNames.put("Feature6", "numeric");
         featureNames.put("Feature7", "numeric");
         featureNames.put("Feature8", "numeric");
+        featureNames.put("Feature9", "numeric");
+        featureNames.put("Feature10", "numeric");
+        featureNames.put("Feature11", "numeric");
+        featureNames.put("Feature12", "numeric");
+        featureNames.put("Feature13", "numeric");
+        featureNames.put("Feature14", "numeric");
+        featureNames.put("Feature15", "numeric");
+        featureNames.put("Feature16", "numeric");
+//        featureNames.put("Feature17", "numeric");
+//        featureNames.put("Feature18", "numeric");
+//        featureNames.put("Feature19", "numeric");
+//        featureNames.put("Feature20", "numeric");
+//        featureNames.put("Feature21", "numeric");
+//        featureNames.put("Feature22", "numeric");
+//        featureNames.put("Feature23", "numeric");
+//        featureNames.put("Feature24", "numeric");
+//        featureNames.put("Feature25", "numeric");
+//        featureNames.put("Feature26", "numeric");
+//        featureNames.put("Feature27", "numeric");
+//        featureNames.put("Feature28", "numeric");
     }
 
     /**
@@ -75,23 +98,69 @@ public class Model {
 
     public Double[] computeFeatures(DescriptiveStatistics atime, DescriptiveStatistics ax, DescriptiveStatistics ay, DescriptiveStatistics az,
                                     DescriptiveStatistics gtime, DescriptiveStatistics gx, DescriptiveStatistics gy, DescriptiveStatistics gz,
-                                    DescriptiveStatistics otime, DescriptiveStatistics ox, DescriptiveStatistics oy, DescriptiveStatistics oz)
+                                    DescriptiveStatistics otime, DescriptiveStatistics od)
     {
         Double[] data = new Double[featureNames.keySet().size()];
-        data[0] = az.getMean();
-        data[1] = az.getMax();
-        data[2] = ay.getMax(); // good
-        data[3] = ax.getMax();
-        data[4] = oy.getMean(); // good
-        data[5] = oy.getMin(); // good
-        data[6] = oy.getMax();
-        data[7] = oy.getVariance(); // good
-        Log.d("Pitch", "mean Pitch is: " + oy.getMean());
-        Log.d("Pitch", "max Pitch is: " + oy.getMax());
-        Log.d("Pitch", "min Pitch is: " + oy.getMin());
-        Log.d("Pitch", "variance Pitch is: " + oy.getVariance());
+//        data[0] = az.getVariance(); // good
+//        data[1] = ay.getMax(); // good
+//        data[2] = ay.getMean(); // good
+//        data[3] = gy.getMax(); // good
+//        data[4] = gx.getMin(); // good
+//        data[5] = gx.getMax(); // good
+
+        data[0] = az.getMean(); //cereal
+        data[1] = az.getVariance(); //good
+        data[2] = ay.getMean(); //good
+        data[3] = ay.getMax();//good //cereal
+        data[4] = ay.getVariance(); //good
+        data[5] = ax.getMean(); //cereal
+        data[6] = gz.getMax(); //good
+        data[7] = gz.getVariance(); //good
+        data[8] = gy.getMean(); //good
+        data[9] = gx.getMin(); //good
+        data[10] = gx.getMax(); //good //cereal
+        data[11] = gx.getVariance(); //cereal
+        data[12] = od.getMean(); //good
+        data[13] = od.getMin(); //good
+        data[14] = od.getMax(); //cereal
+        data[15] = od.getVariance(); //good
 
 
+
+//        data[0] = az.getMean(); //cereal
+//        data[1] = az.getMax();
+//        data[2] = az.getMin();
+//        data[3] = az.getVariance(); //good
+//
+//        data[4] = ay.getMean(); //good
+//        data[5] = ay.getMax();//good //cereal
+//        data[6] = ay.getMin();
+//        data[7] = ay.getVariance(); //good
+//
+//        data[8] = ax.getMean(); //cereal
+//        data[9] = ax.getMax();
+//        data[10] = ax.getMin();
+//        data[11] = ax.getVariance();
+//
+//        data[12] = gz.getMean();
+//        data[13] = gz.getMax(); //good
+//        data[14] = gz.getMin();
+//        data[15] = gz.getVariance(); //good
+//
+//        data[16] = gy.getMean(); //good
+//        data[17] = gy.getMax();
+//        data[18] = gz.getMin();
+//        data[19] = gy.getVariance();
+//
+//        data[20] = gx.getMean();
+//        data[21] = gx.getMin(); //good
+//        data[22] = gx.getMax(); //good //cereal
+//        data[23] = gx.getVariance(); //cereal
+//
+//        data[24] = od.getMean(); //good
+//        data[25] = od.getMin(); //good
+//        data[26] = od.getMax(); //cereal
+//        data[27] = od.getVariance(); //good
 
         return data;
     }
@@ -149,13 +218,13 @@ public class Model {
      * Create an .arff file for the dataset
      * @param isTraining: whether the data is training or testing data
      */
-    private void createDataFile(boolean isTraining) {
+    private void createDataFile(boolean isTraining, String filename) {
         PrintWriter writer;
         // Setup the file writer depending on whether it is training or testing data
         if (isTraining)
-            writer = createPrintWriter(trainDataFilepath);
+            writer = createPrintWriter(filename);
         else
-            writer = createPrintWriter(testDataFilepath);
+            writer = createPrintWriter(filename);
 
         // Name the dataset
         writer.println("@relation gestures");
@@ -207,25 +276,28 @@ public class Model {
     /**
      * Trains a model for the training data
      */
-    public void train(boolean isAddTrainingSamples) {
+    public void train(boolean isAddTrainingSamples, String filename) {
 
         // Create the file for training
         if (isAddTrainingSamples)
-            createDataFile(true);
+            createDataFile(true, filename);
 
         // Read the file and specify the last index as the class
-        Instances trainInstances = createInstances(trainDataFilepath);
+        Instances trainInstances = createInstances(filename);
         if (trainInstances == null) {
             return;
         }
         trainInstances.setClassIndex(trainInstances.numAttributes()-1);
-        Toast.makeText(context,
-                "Number of total training samples: "+trainInstances.size(),
-                Toast.LENGTH_SHORT).show();
+        if(DEBUG_MODE)
+            Toast.makeText(context,
+                    "Number of total training samples: "+trainInstances.size(),
+                    Toast.LENGTH_SHORT).show();
 
         // Define the classifier
         // TODO optional: try out different classifiers provided by Weka
-        model = new IBk(1);
+        //model = new IBk(1);
+//        model = new LMT();
+        model = new LWL();
         try {
             model.buildClassifier(trainInstances);
 
@@ -239,12 +311,12 @@ public class Model {
      * Returns the string label for the recently tested gesture
      * @return the string label
      */
-    public String test() {
+    public String test(String filename) {
         // Create the file for testing
-        createDataFile(false);
+        createDataFile(false, filename);
 
         // Read the file and specify the last index as the class
-        Instances testInstances = createInstances(testDataFilepath);
+        Instances testInstances = createInstances(filename);
         testInstances.setClassIndex(testInstances.numAttributes()-1);
 
         // Predict
